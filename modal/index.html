@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal</title>
+    <style>
+        .overlay {
+            position: fixed;
+            display: none;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 3;
+        }
+
+        .overlay .popup {
+        position: fixed;
+        z-index: 4;
+        left: 50%;
+        top: 150px;
+        width: 752px;
+        -webkit-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+                transform: translateX(-50%);
+        }
+        .overlay .popup-close {
+        position: absolute;
+        right: -20px;
+        top: -35px;
+        cursor: pointer;
+        font-size: 35px;
+        color: #fff;
+        font-weight: 300;
+        }
+        .overlay .popup-title {
+        display: block;
+        width: 100%;
+        height: 71px;
+        line-height: 71px;
+        margin: 0;
+        background-color: #c78030;
+        color: #ffffff;
+        text-transform: uppercase;
+        font-size: 21px;
+        font-weight: 500;
+        text-align: center;
+        }
+        .overlay .popup-form {
+        background: rgb(0, 0, 0, 0.5);
+        background-size: cover;
+        padding: 35px 88px 50px 88px;
+        color: #fff;
+        }
+        .overlay .popup-form-header {
+        padding: 0;
+        font-weight: 400;
+        line-height: 27px;
+        font-size: 30px;
+        text-align: center;
+        }
+        .overlay .popup-form__label {
+        display: block;
+        margin-top: 23px;
+        font-size: 20px;
+        font-weight: 300;
+        text-align: center;
+        }
+        .overlay .popup-form__input {
+        width: 365px;
+        height: 56px;
+        margin-top: 17px;
+        font-size: 18px;
+        background-color: #c78030;
+        border: none;
+        color: #fff;
+        text-align: center;
+        }
+        .overlay .popup-form__input::-webkit-input-placeholder {
+        color: #fff;
+        }
+        .overlay .popup-form__input::-moz-placeholder {
+        color: #fff;
+        }
+        .overlay .popup-form__input:-moz-placeholder {
+        color: #fff;
+        }
+        .overlay .popup-form__input:-ms-input-placeholder {
+        color: #fff;
+        }
+        .overlay .popup-form__input:focus::-webkit-input-placeholder {
+        color: transparent;
+        }
+        .overlay .popup-form__input:focus::-moz-placeholder {
+        color: transparent;
+        }
+        .overlay .popup-form__input:focus:-moz-placeholder {
+        color: transparent;
+        }
+        .overlay .popup-form__input:focus:-ms-input-placeholder {
+        color: transparent;
+        }
+        .overlay .popup-form__btn {
+        width: 180px;
+        height: 56px;
+        font-size: 15px;
+        line-height: 22px;
+        margin-left: 16px;
+        background-color: transparent;
+        color: #c78030;
+        border: 1px solid #c78030;
+        cursor: pointer;
+        }
+        .overlay .popup-form__btn:hover {
+        box-shadow: 0 0 10px #c78030;
+        }
+        .fade {
+        -webkit-animation-name: fade;
+                animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+                animation-duration: 1.5s;
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+        }
+        @-webkit-keyframes fade {
+        from {
+            opacity: 0.1;
+        }
+        to {
+            opacity: 1;
+        }
+        }
+        @keyframes fade {
+        from {
+            opacity: 0.1;
+        }
+        to {
+            opacity: 1;
+        }
+        }
+    </style>
+</head>
+<body>
+    <button class="more"> Узнать больше</button>
+    <div class="overlay fade">
+            <div class="popup">
+            <div class="popup-close">&times;</div>
+            <div class="popup-title">Форма обратной связи</div>
+                <div class="popup-form">	
+                    <form action="#" class="main-form">
+                        <div class="popup-form-header">
+                            Узнайте больше о своём отдыхе
+                        </div>
+                            <label class="popup-form__label" for="phone">
+                            Введите ваш номер телефона:
+                            </label>
+                            <input class="popup-form__input" name="phone" type="tel" required placeholder="+3 8099 999 99 99">
+                            <button class="button popup-form__btn">
+                                Оставить заявку!
+                            </button>
+                    </form>
+                </div>
+            </div>
+    </div>
+
+    <script>
+        openModal();
+        function openModal () {
+            let btn = document.querySelector('.more'),
+                modal = document.querySelector('.overlay'),
+                close = document.querySelector('.popup-close');
+
+            btn.addEventListener('click', function () {
+                console.log('see')
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+            close.addEventListener('click', function () {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            });
+        };
+    </script>
+</body>
+</html>
