@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+<body>
+    <div class="contact-form">
+        <div class="contact-form-title">
+            Мы с вами свяжемся
+        </div>
+        <form id="form">
+            <input required name="email"type="email" placeholder="Ваша почта">
+            <input required name="phone" type="tel" placeholder="Ваш телефон">
+            <input required name="name" type="name" placeholder="Ваше имя">
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+    <script>
+       formSending();
+       function formSending() {
+           const form = document.querySelectorAll('form');
+
+        form.forEach(el => sendForm(el));
+        const mess = {
+            loading: "Loading...",
+            success: "The Message was sended!",
+            error: "Something is wrong :("
+        }
+
+        function sendForm (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let statusMessage = document.createElement('div');
+                statusMessage.classList.add('statusMessage');
+                statusMessage.textContent = mess.loading;
+                form.append(statusMessage);
+
+                const formData = new FormData(form);
+
+                const obj = {};
+                formData.forEach((key, val) => obj[val] = key);
+
+                fetch('https://jsonplaceholder.typicode.com/posts', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(obj)
+                })
+                .then(info => info.text())
+                .then(data => {
+                    console.log(data);
+                    statusMessage.textContent = mess.success;
+                })
+                .catch(() => {
+                statusMessage.textContent = mess.error;
+                }).finally(() => {
+                    form.reset();
+                    setTimeout(()=> {
+                        statusMessage.remove();
+                    }, 1500);
+                });
+            })
+        }
+
+       }
+    </script>
+</body>
+</html>
