@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cost calculator</title>
+</head>
+<body>
+    <div class="counter" id="price">
+        <div class="counter-title">Рассчитайте стоимость вашего отдыха
+        </div>
+        <div class="counter-block">
+            <div class="counter-block-option">Количество людей</div>
+            <input type="number" min="1" step="1" class="counter-block-input">
+        </div>
+        <div class="counter-block">
+            <div class="counter-block-option">На сколько дней</div>
+            <input type="number" min="1" step="1" class="counter-block-input">
+        </div>
+        <div class="counter-block">
+            <div class="counter-block-option">Выберете базу</div>
+            <select name="place" id="select">
+                <option id="mumbai" value="1">Индия, Мумбай</option>
+                <option id="kerala" value="1.5">Индия, Керала</option>
+                <option id="varanasi" value="1.8">Индия, Варанаси</option>
+            </select>
+        </div>
+        <div class="counter-total">
+            Общая сумма<br>
+            <span id="total">20456</span>
+        </div>
+    </div>
+    <script>
+        calculator();
+       function calculator () {
+        let peoples = document.querySelectorAll('.counter-block-input')[0],
+            days =  document.querySelectorAll('.counter-block-input')[1],
+            select = document.getElementById('select'),
+            total = document.getElementById('total'),
+            peoplesValue = 0,
+            daysValue = 0,
+            totalValue = 0;
+
+            total.textContent = 0;
+
+            function formula (a, b) {
+                let sum = (a * 55) * b;
+                return sum;
+            }
+
+            peoples.addEventListener('input', function () {
+                peoplesValue = +this.value;
+                if (days == '') {
+                    totalValue = 0;
+                } 
+
+                if (this.value == '') {
+                    days.value = '';
+                }
+                select.value = 1;
+                totalValue = formula(peoplesValue, daysValue);
+                total.textContent = totalValue;
+            });
+
+            days.addEventListener('input', function () {
+                daysValue = +this.value;
+                if (peoples == '') {
+                    totalValue = 0;
+                }
+                
+                if (this.value == '') {
+                    peoples.value = '';
+                }
+                select.value = 1;
+                totalValue = formula(peoplesValue, daysValue);
+                total.textContent = totalValue;
+            });
+
+
+            select.addEventListener('change', function () {
+                if (daysValue == '' || peoplesValue == '') {
+                    total.textContent = 0;
+                } else {
+                    let a = totalValue;
+                    total.textContent = a * this.options[this.selectedIndex].value;
+                }
+
+            });
+            
+    };
+    </script>
+</body>
+</html>
