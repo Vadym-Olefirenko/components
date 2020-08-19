@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tabs</title>
+    <style>
+        .info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 50%;
+        }
+
+        .info-header-tab {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            border: 1px solid #000;
+            border-left: 0;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .tab-active {
+            border-bottom: 1px solid #fff;
+        }
+
+        .info-header-tab:first-child {
+            border-left: 1px solid #000;
+        }
+
+        .info-tabcontent {
+            border: 1px solid #000;
+           margin-top: -1px;
+        }
+
+        .info .hide {
+        display: none;
+        }
+        .info .show {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        }
+
+        .fade {
+        -webkit-animation-name: fade;
+                animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+                animation-duration: 1.5s;
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+        }
+        @-webkit-keyframes fade {
+        from {
+            opacity: 0.1;
+        }
+        to {
+            opacity: 1;
+        }
+        }
+        @keyframes fade {
+        from {
+            opacity: 0.1;
+        }
+        to {
+            opacity: 1;
+        }
+        }
+    </style>
+</head>
+<body>
+    <div class="info" >
+        <div class="info-header">
+            <div class="info-header-tab">Lorem 1</div>
+            <div class="info-header-tab">Lorem 2</div>
+            <div class="info-header-tab">Lorem 3</div>
+            <div class="info-header-tab">Lorem 4</div>
+        </div>
+       
+        <div class="info-tabcontent fade">
+           Lorem 1 text
+        </div>
+        <div class="info-tabcontent fade">
+            Lorem 2 text
+         </div>
+         <div class="info-tabcontent fade">
+            Lorem 3 text
+         </div>
+         <div class="info-tabcontent fade">
+            Lorem 4 text
+         </div>
+        
+    </div>
+    <script>
+        function tabs () {
+            let tab = document.querySelectorAll('.info-header-tab'),
+            tabArea = document.querySelector('.info-header'),
+            infoBlock = document.querySelectorAll('.info-tabcontent');
+
+        
+            infoBlock.forEach(function(item) {
+                item.classList.add('hide');
+                infoBlock[0].classList.add('show');
+            });
+            tab.forEach(function(item) {
+                tab[0].classList.add('tab-active');
+            });
+
+            tabArea.addEventListener('click', function(e) {
+                let target = e.target;
+                if (target && target.classList.contains('info-header-tab')) {
+                    tab.forEach(function(elem, i) {
+                        if(target == tab[i]) {
+                            tab.forEach(function(item) {
+                                item.classList.remove('tab-active');
+                                tab[i].classList.add('tab-active');
+                            });
+                            infoBlock.forEach(function(item) {
+                                item.classList.add('hide');
+                                item.classList.remove('show');
+                                infoBlock[i].classList.add('show');
+                            }); 
+                        };
+
+                    });
+                }
+            });
+        };
+        tabs();
+    </script>
+</body>
+</html>
